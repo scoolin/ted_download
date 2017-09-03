@@ -15,19 +15,24 @@ import java.util.logging.Logger;
 public class Smb {
 
     private final static Logger logger = Logger.getLogger(Smb.class.getName());
+    private final static String DOWNLOAD_VIDEO_PATH = "smb://192.168.31.1/纪录片/Ted/";
 
     public static void main(String[] args) throws MalformedURLException, SmbException {
-        String path = "smb://192.168.31.1/纪录片/Ted/";
-        Set<String> set = getAllDownloadedTedVideos(path);
+        Set<String> set = getAllDownloadedTedVideos(DOWNLOAD_VIDEO_PATH);
         set.forEach(System.out::println);
         System.out.println(set.size());
         set.forEach(Smb::printNoZhCn);
+        System.out.println();
     }
 
     private static void printNoZhCn(String file) {
         if (!file.contains("zh-cn")) {
             System.out.println(file);
         }
+    }
+
+    static Set<String> getAllDownloadedTedVideos() throws MalformedURLException, SmbException {
+        return getAllDownloadedTedVideos(DOWNLOAD_VIDEO_PATH);
     }
 
     static Set<String> getAllDownloadedTedVideos(String path) throws SmbException, MalformedURLException {
